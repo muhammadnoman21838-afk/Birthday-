@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise Pro</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  text-align:center;
+  background:linear-gradient(120deg,#ff9a9e,#fad0c4,#a18cd1);
+  color:white;
+  overflow:hidden;
+}
+
+h1{
+  margin-top:40px;
+  font-size:40px;
+}
+
+.cake{
+  font-size:90px;
+  animation:bounce 1s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-25px);}
+}
+
+input,button{
+  padding:10px;
+  margin:6px;
+  border:none;
+  border-radius:10px;
+}
+
+button{
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+}
+
+#surprise{
+  display:none;
+  font-size:22px;
+  margin-top:20px;
+}
+
+/* Slideshow */
+.slide{
+  width:250px;
+  height:250px;
+  margin:auto;
+  border-radius:20px;
+  background-size:cover;
+  background-position:center;
+  animation:slide 10s infinite;
+}
+
+@keyframes slide{
+  0%{background-image:url('https://picsum.photos/300?1');}
+  33%{background-image:url('https://picsum.photos/300?2');}
+  66%{background-image:url('https://picsum.photos/300?3');}
+  100%{background-image:url('https://picsum.photos/300?1');}
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎉 Birthday Surprise Pro 🎉</h1>
+
+<div class="cake">🎂</div>
+
+<div class="slide"></div>
+
+<p>Enter Name:</p>
+<input id="name" placeholder="Your Name">
+<br>
+<button onclick="wish()">Generate Wish</button>
+
+<h2 id="msg"></h2>
+
+<hr>
+
+<p>Enter Password 🔒</p>
+<input id="pass" type="password" placeholder="Password">
+<br>
+<button onclick="unlock()">Unlock Surprise</button>
+
+<div id="surprise">
+💖 Surprise Unlocked! Happy Birthday to you! 🎉
+</div>
+
+<br>
+
+<button onclick="whatsappShare()">Share on WhatsApp 📲</button>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+</audio>
+
+<script>
+// Wish
+function wish(){
+  let n = document.getElementById("name").value;
+  document.getElementById("msg").innerHTML =
+  "🎉 Happy Birthday " + n + " 🎉";
+  document.getElementById("music").play();
+}
+
+// Password
+function unlock(){
+  let p = document.getElementById("pass").value;
+  if(p === "2026"){
+    document.getElementById("surprise").style.display="block";
+    confetti();
+  } else {
+    alert("Wrong Password ❌ Hint: 2026");
+  }
+}
+
+// WhatsApp share
+function whatsappShare(){
+  let url = window.location.href;
+  window.open("https://wa.me/?text=Check%20this%20Birthday%20Surprise:%20"+url);
+}
+
+// Simple confetti effect
+function confetti(){
+  for(let i=0;i<80;i++){
+    let c = document.createElement("div");
+    c.style.position="fixed";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top="-10px";
+    c.style.width="8px";
+    c.style.height="8px";
+    c.style.background=["red","yellow","blue","green"][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+
+    let fall = setInterval(()=>{
+      c.style.top = (parseInt(c.style.top||0)+5)+"px";
+      if(parseInt(c.style.top)>window.innerHeight){
+        c.remove();
+        clearInterval(fall);
+      }
+    },20);
+  }
+}
+</script>
+
+</body>
+</html>
